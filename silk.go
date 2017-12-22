@@ -27,7 +27,7 @@ func decode(buf []byte) []byte {
 		plen := int(uint16(buf[0]) + (uint16(buf[1]) << 8))
 
 		if len(buf) < 2+plen {
-			log.Printf("%d bytes expected for %d\n", int(plen), len(buf))
+			log.Printf("%d bytes expected but only %d available\n", int(plen), len(buf))
 			break
 		}
 		payload := buf[2 : 2+plen]
@@ -78,8 +78,6 @@ func Convert(buf []byte) ([]byte, error) {
 		return nil, fmt.Errorf("Failed to decode")
 	}
 
-	var b bytes.Buffer
-
 	datalen := uint32(len(out))
 	hdr := wavHeader{
 		ChunkID:       [4]byte{'R', 'I', 'F', 'F'},
@@ -97,6 +95,7 @@ func Convert(buf []byte) ([]byte, error) {
 		Subchunk2Size: datalen,
 	}
 
+	var b bytes.Buffer
 	binary.Write(&b, binary.LittleEndian, hdr)
 	b.Write(out)
 	return b.Bytes(), nil
