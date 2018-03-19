@@ -98,5 +98,3 @@ func Convert(buf []byte) ([]byte, error) {
 	b.Write(out)
 	return b.Bytes(), nil
 }
-
-

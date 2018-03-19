@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"log"
-	silk2wav ".."
+	"github.com/jdeng/silk2wav"
 	"io/ioutil"
+	"log"
+	"os"
 )
 
 func main() {
